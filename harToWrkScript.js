@@ -61,7 +61,8 @@ function outputWrkScript(har) {
       }
       var req = entry.request
       var method = req.method
-      var path = url.parse(req.url).pathname
+      var parsed = url.parse(req.url)
+      var path = parsed.pathname + '?' + parsed.query
       var headers = formatHeaders(req.headers)
       var body = req.postData ? JSON.stringify(req.postData.text) : 'nil'
       o('reqs[', i, '] = wrk.format("', method, '", "', path, '", ', headers, ', ', body, ')')
